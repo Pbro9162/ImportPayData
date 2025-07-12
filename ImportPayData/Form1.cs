@@ -7,12 +7,14 @@ namespace ImportPayData
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBrowse_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+
+
+        private void cboSheet_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

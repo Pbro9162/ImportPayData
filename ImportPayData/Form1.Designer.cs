@@ -73,6 +73,7 @@
             cboSheet.Name = "cboSheet";
             cboSheet.Size = new Size(536, 28);
             cboSheet.TabIndex = 3;
+            cboSheet.SelectedIndexChanged += cboSheet_SelectedIndexChanged;
             // 
             // txtFilename
             // 
