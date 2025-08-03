@@ -92,7 +92,7 @@ namespace ImportPayData
         {
             try
             {
-                string connectionString = "Server=DESKTOP-SUAB0U9;Database=ImportPayrollTestDB;User ID=Tester;Password=password1234;TrustServerCertificate=True;"; // Replace with your actual connection string
+                string connectionString = "Server=DESKTOP-SUAB0U9;Database=10009;User ID=Tester;Password=password1234;TrustServerCertificate=True;"; 
                 DapperPlusManager.Entity<PRTransactionMaster>().Table("PRTransactionMaster");
                 List<PRTransactionMaster> transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
                 if (transactions != null)
