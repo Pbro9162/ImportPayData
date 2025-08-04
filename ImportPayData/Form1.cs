@@ -71,10 +71,10 @@ namespace ImportPayData
                     foreach (DataRow row in dt.Rows)
                     {
                         row["cImportBatchID"] = batchIDresult; // Edit the "cimportbatchid" column for this row
-
+                        
 
                     }
-
+                    dataGridView1.Refresh();
                     List<PRTransactionMaster> t = new List<PRTransactionMaster>();
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
