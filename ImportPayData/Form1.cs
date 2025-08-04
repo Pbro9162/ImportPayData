@@ -2,7 +2,7 @@ using ExcelDataReader;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Z.BulkOperations.Internal.InformationSchema;
-using Z.Dapper.Plus;
+
 
 namespace ImportPayData
 {
@@ -39,7 +39,7 @@ namespace ImportPayData
 
                             foreach (DataTable table in tableCollection)
                             {
-                                
+
                                 cboSheet.Items.Add(table.TableName); // add sheet to combobox
                             }
                         }
@@ -54,7 +54,9 @@ namespace ImportPayData
         {
             string connectionString = "Server=DESKTOP-SUAB0U9;Database=10009;User ID=Tester;Password=password1234;TrustServerCertificate=True;";
             DataTable dt = tableCollection[cboSheet.SelectedItem.ToString()];
-            //dataGridView1.DataSource = dt;
+
+
+
             if (dt != null)
             {
                 //GET BATCHID, UNIQUE FOR EACH IMPORT
@@ -66,16 +68,21 @@ namespace ImportPayData
 
                     c.Parameters.AddWithValue("@param", id);
                     string batchIDresult = c.ExecuteScalar().ToString();
-                    
+
+
                     //UPDATES DATA TABLE WITH BATCHID
                     foreach (DataRow row in dt.Rows)
                     {
                         row["cImportBatchID"] = batchIDresult; // Edit the "cimportbatchid" column for this row
-                        
+
 
                     }
                     dataGridView1.Refresh();
+
+
+                    // Create a list to hold the PRTransactionMaster objects
                     List<PRTransactionMaster> t = new List<PRTransactionMaster>();
+
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         PRTransactionMaster tr = new PRTransactionMaster();
@@ -104,9 +111,38 @@ namespace ImportPayData
                     }
 
                     pRTransactionMasterBindingSource.DataSource = t;
-
+                    dataGridView1.DataSource = pRTransactionMasterBindingSource;
                 }
             }
+        }
+
+        private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            List<PRTransactionMaster> transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
+
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    // Handle changes in the "Company ID" column
+                    if (transactions != null && e.RowIndex >= 0 && e.RowIndex < transactions.Count)
+                    {
+                        transactions[e.RowIndex].IDGLCompany = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        MessageBox.Show(transactions[e.RowIndex].IDGLCompany.ToString());
+                    }
+                    break;
+                case 1:
+                    // Handle changes in the "cGLCompanyID" column
+                    if (transactions != null && e.RowIndex >= 0 && e.RowIndex < transactions.Count)
+                    {
+                        transactions[e.RowIndex].CGLCompanyID = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                    }
+                    break;
+            }
+            pRTransactionMasterBindingSource.DataSource = transactions; // Update the binding source with the modified list
+            pRTransactionMasterBindingSource.ResetBindings(false); // Refresh the DataGridView to reflect changes
+
+
+
         }
 
         private void BtnImport_Click(object sender, EventArgs e)
@@ -114,36 +150,38 @@ namespace ImportPayData
             try
             {
                 string connectionString = "Server=DESKTOP-SUAB0U9;Database=10009;User ID=Tester;Password=password1234;TrustServerCertificate=True;"; // Replace with your actual connection string
-                DapperPlusManager.Entity<PRTransactionMaster>().Table("PRTransactionMaster");
+ 
                 List<PRTransactionMaster> transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
                 if (transactions != null)
                 {
-                   
+
 
                     using (SqlBulkCopy bk = new SqlBulkCopy(connectionString))
                     {
-                        DataTable dt = tableCollection[cboSheet.SelectedItem.ToString()];
+                        
+                        DataTable dt = transactions.ToDataTable(); // Convert the list to a DataTable
+                        
 
                         bk.BulkCopyTimeout = 600;
                         bk.DestinationTableName = "dbo.PRTRANSACTIONMASTER";
-                
-                        bk.ColumnMappings.Add("Company ID", "idGLCompany");
+
+                        bk.ColumnMappings.Add("IDGLCompany", "idGLCompany");
                         bk.ColumnMappings.Add("cGLCompanyID", "cGLCompanyID");
-                        bk.ColumnMappings.Add("Employee ID", "idPREmployee");
-                        bk.ColumnMappings.Add("Check Number", "cCheckNumber");
-                        bk.ColumnMappings.Add("Check Date", "dCheckDate");
-                        bk.ColumnMappings.Add("Accounting Date", "dAccountingDate");
-                        bk.ColumnMappings.Add("Pay Period Start", "dPayPeriodStart");
-                        bk.ColumnMappings.Add("Pay Period End", "dPayPeriodEnd");
-                        bk.ColumnMappings.Add("Gross Amount", "nGrossAmount");
-                        bk.ColumnMappings.Add("Net Amount", "nNetAmount");
-                        bk.ColumnMappings.Add("Regular Pay", "nRegularPay");
-                        bk.ColumnMappings.Add("Overtime Pay", "nOvertimePay");
-                        bk.ColumnMappings.Add("Time Off Pay", "nTimeOffPay");
-                        bk.ColumnMappings.Add("Regular Hours", "nRegularHours");
-                        bk.ColumnMappings.Add("Overtime Hours", "nOvertimeHours");
-                        bk.ColumnMappings.Add("Time Off Hours", "nTimeOffHours");
-                        bk.ColumnMappings.Add("Do Not Pay Hours", "nDoNotPayHours");
+                        bk.ColumnMappings.Add("IDPREEmployee", "idPREmployee");
+                        bk.ColumnMappings.Add("CCheckNumber", "cCheckNumber");
+                        bk.ColumnMappings.Add("DCheckDate", "dCheckDate");
+                        bk.ColumnMappings.Add("DAccountingDate", "dAccountingDate");
+                        bk.ColumnMappings.Add("DPayPeriodStart", "dPayPeriodStart");
+                        bk.ColumnMappings.Add("DPayPeriodEnd", "dPayPeriodEnd");
+                        bk.ColumnMappings.Add("NGrossAmount", "nGrossAmount");
+                        bk.ColumnMappings.Add("NNetAmount", "nNetAmount");
+                        bk.ColumnMappings.Add("NRegularPay", "nRegularPay");
+                        bk.ColumnMappings.Add("NOvertimePay", "nOvertimePay");
+                        bk.ColumnMappings.Add("NTimeOffPay", "nTimeOffPay");
+                        bk.ColumnMappings.Add("NRegularHours", "nRegularHours");
+                        bk.ColumnMappings.Add("NOvertimeHours", "nOvertimeHours");
+                        bk.ColumnMappings.Add("NTimeOffHours", "nTimeOffHours");
+                        bk.ColumnMappings.Add("NDoNotPayHours", "nDoNotPayHours");
                         bk.ColumnMappings.Add("CImportBatchID", "cImportBatchID");
 
                         bk.WriteToServer(dt.CreateDataReader());
@@ -157,5 +195,7 @@ namespace ImportPayData
                 MessageBox.Show("An error occurred during import: " + ex.Message, "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 }

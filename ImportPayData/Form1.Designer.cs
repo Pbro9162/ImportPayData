@@ -31,12 +31,6 @@
             components = new System.ComponentModel.Container();
             btnBrowse = new Button();
             dataGridView1 = new DataGridView();
-            label1 = new Label();
-            cboSheet = new ComboBox();
-            txtFilename = new TextBox();
-            label2 = new Label();
-            btnImport = new Button();
-            pRTransactionMasterBindingSource = new BindingSource(components);
             iDGLCompanyDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             cGLCompanyIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             iDPREEmployeeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -56,6 +50,12 @@
             nDoNotPayHoursDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             bPRModuleDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             cImportBatchIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            pRTransactionMasterBindingSource = new BindingSource(components);
+            label1 = new Label();
+            cboSheet = new ComboBox();
+            txtFilename = new TextBox();
+            label2 = new Label();
+            btnImport = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).BeginInit();
             SuspendLayout();
@@ -81,55 +81,7 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(677, 359);
             dataGridView1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 371);
-            label1.Name = "label1";
-            label1.Size = new Size(79, 20);
-            label1.TabIndex = 2;
-            label1.Text = "File Name:";
-            // 
-            // cboSheet
-            // 
-            cboSheet.FormattingEnabled = true;
-            cboSheet.Location = new Point(97, 406);
-            cboSheet.Name = "cboSheet";
-            cboSheet.Size = new Size(536, 28);
-            cboSheet.TabIndex = 3;
-            cboSheet.SelectedIndexChanged += CboSheet_SelectedIndexChanged;
-            // 
-            // txtFilename
-            // 
-            txtFilename.Location = new Point(97, 368);
-            txtFilename.Name = "txtFilename";
-            txtFilename.ReadOnly = true;
-            txtFilename.Size = new Size(536, 27);
-            txtFilename.TabIndex = 4;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(42, 409);
-            label2.Name = "label2";
-            label2.Size = new Size(49, 20);
-            label2.TabIndex = 5;
-            label2.Text = "Sheet:";
-            // 
-            // btnImport
-            // 
-            btnImport.Location = new Point(639, 405);
-            btnImport.Name = "btnImport";
-            btnImport.Size = new Size(94, 29);
-            btnImport.TabIndex = 6;
-            btnImport.Text = "&Import";
-            btnImport.UseVisualStyleBackColor = true;
-            btnImport.Click += BtnImport_Click;
-            // 
-            // pRTransactionMasterBindingSource
-            // 
-            pRTransactionMasterBindingSource.DataSource = typeof(PRTransactionMaster);
+            dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
             // 
             // iDGLCompanyDataGridViewTextBoxColumn
             // 
@@ -282,6 +234,55 @@
             cImportBatchIDDataGridViewTextBoxColumn.MinimumWidth = 6;
             cImportBatchIDDataGridViewTextBoxColumn.Name = "cImportBatchIDDataGridViewTextBoxColumn";
             cImportBatchIDDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // pRTransactionMasterBindingSource
+            // 
+            pRTransactionMasterBindingSource.DataSource = typeof(PRTransactionMaster);
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 371);
+            label1.Name = "label1";
+            label1.Size = new Size(79, 20);
+            label1.TabIndex = 2;
+            label1.Text = "File Name:";
+            // 
+            // cboSheet
+            // 
+            cboSheet.FormattingEnabled = true;
+            cboSheet.Location = new Point(97, 406);
+            cboSheet.Name = "cboSheet";
+            cboSheet.Size = new Size(536, 28);
+            cboSheet.TabIndex = 3;
+            cboSheet.SelectedIndexChanged += CboSheet_SelectedIndexChanged;
+            // 
+            // txtFilename
+            // 
+            txtFilename.Location = new Point(97, 368);
+            txtFilename.Name = "txtFilename";
+            txtFilename.ReadOnly = true;
+            txtFilename.Size = new Size(536, 27);
+            txtFilename.TabIndex = 4;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(42, 409);
+            label2.Name = "label2";
+            label2.Size = new Size(49, 20);
+            label2.TabIndex = 5;
+            label2.Text = "Sheet:";
+            // 
+            // btnImport
+            // 
+            btnImport.Location = new Point(639, 405);
+            btnImport.Name = "btnImport";
+            btnImport.Size = new Size(94, 29);
+            btnImport.TabIndex = 6;
+            btnImport.Text = "&Import";
+            btnImport.UseVisualStyleBackColor = true;
+            btnImport.Click += BtnImport_Click;
             // 
             // Form1
             // 
