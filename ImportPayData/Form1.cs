@@ -39,6 +39,7 @@ namespace ImportPayData
 
                             foreach (DataTable table in tableCollection)
                             {
+                                
                                 cboSheet.Items.Add(table.TableName); // add sheet to combobox
                             }
                         }
@@ -65,8 +66,14 @@ namespace ImportPayData
 
                     c.Parameters.AddWithValue("@param", id);
                     string batchIDresult = c.ExecuteScalar().ToString();
+                    
+                    //UPDATES DATA TABLE WITH BATCHID
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        row["cImportBatchID"] = batchIDresult; // Edit the "cimportbatchid" column for this row
 
 
+                    }
 
                     List<PRTransactionMaster> t = new List<PRTransactionMaster>();
                     for (int i = 0; i < dt.Rows.Count; i++)
