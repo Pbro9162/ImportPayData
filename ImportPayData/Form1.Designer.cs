@@ -31,6 +31,14 @@
             components = new System.ComponentModel.Container();
             btnBrowse = new Button();
             dataGridView1 = new DataGridView();
+            pRTransactionMasterBindingSource = new BindingSource(components);
+            label1 = new Label();
+            cboSheet = new ComboBox();
+            txtFilename = new TextBox();
+            label2 = new Label();
+            btnImport = new Button();
+            Totals_Lbl = new Label();
+            totalsGridView = new DataGridView();
             iDGLCompanyDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             cGLCompanyIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             iDPREEmployeeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -50,19 +58,14 @@
             nDoNotPayHoursDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             bPRModuleDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             cImportBatchIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            pRTransactionMasterBindingSource = new BindingSource(components);
-            label1 = new Label();
-            cboSheet = new ComboBox();
-            txtFilename = new TextBox();
-            label2 = new Label();
-            btnImport = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)totalsGridView).BeginInit();
             SuspendLayout();
             // 
             // btnBrowse
             // 
-            btnBrowse.Location = new Point(639, 365);
+            btnBrowse.Location = new Point(750, 781);
             btnBrowse.Name = "btnBrowse";
             btnBrowse.Size = new Size(38, 29);
             btnBrowse.TabIndex = 0;
@@ -76,17 +79,89 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { iDGLCompanyDataGridViewTextBoxColumn, cGLCompanyIDDataGridViewTextBoxColumn, iDPREEmployeeDataGridViewTextBoxColumn, cCheckNumberDataGridViewTextBoxColumn, dCheckDateDataGridViewTextBoxColumn, dAccountingDateDataGridViewTextBoxColumn, dPayPeriodStartDataGridViewTextBoxColumn, dPayPeriodEndDataGridViewTextBoxColumn, nGrossAmountDataGridViewTextBoxColumn, nNetAmountDataGridViewTextBoxColumn, nRegularPayDataGridViewTextBoxColumn, nOvertimePayDataGridViewTextBoxColumn, nTimeOffPayDataGridViewTextBoxColumn, nRegularHoursDataGridViewTextBoxColumn, nOvertimeHoursDataGridViewTextBoxColumn, nTimeOffHoursDataGridViewTextBoxColumn, nDoNotPayHoursDataGridViewTextBoxColumn, bPRModuleDataGridViewCheckBoxColumn, cImportBatchIDDataGridViewTextBoxColumn });
             dataGridView1.DataSource = pRTransactionMasterBindingSource;
-            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Location = new Point(123, 12);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(677, 359);
+            dataGridView1.Size = new Size(1631, 694);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
+            // 
+            // pRTransactionMasterBindingSource
+            // 
+            pRTransactionMasterBindingSource.DataSource = typeof(PRTransactionMaster);
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(123, 781);
+            label1.Name = "label1";
+            label1.Size = new Size(79, 20);
+            label1.TabIndex = 2;
+            label1.Text = "File Name:";
+            // 
+            // cboSheet
+            // 
+            cboSheet.FormattingEnabled = true;
+            cboSheet.Location = new Point(208, 841);
+            cboSheet.Name = "cboSheet";
+            cboSheet.Size = new Size(536, 28);
+            cboSheet.TabIndex = 3;
+            cboSheet.SelectedIndexChanged += CboSheet_SelectedIndexChanged;
+            // 
+            // txtFilename
+            // 
+            txtFilename.Location = new Point(208, 778);
+            txtFilename.Name = "txtFilename";
+            txtFilename.ReadOnly = true;
+            txtFilename.Size = new Size(536, 27);
+            txtFilename.TabIndex = 4;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(153, 844);
+            label2.Name = "label2";
+            label2.Size = new Size(49, 20);
+            label2.TabIndex = 5;
+            label2.Text = "Sheet:";
+            // 
+            // btnImport
+            // 
+            btnImport.Location = new Point(750, 840);
+            btnImport.Name = "btnImport";
+            btnImport.Size = new Size(94, 29);
+            btnImport.TabIndex = 6;
+            btnImport.Text = "&Import";
+            btnImport.UseVisualStyleBackColor = true;
+            btnImport.Click += BtnImport_Click;
+            // 
+            // Totals_Lbl
+            // 
+            Totals_Lbl.AutoSize = true;
+            Totals_Lbl.Location = new Point(1001, 738);
+            Totals_Lbl.Name = "Totals_Lbl";
+            Totals_Lbl.Size = new Size(51, 20);
+            Totals_Lbl.TabIndex = 7;
+            Totals_Lbl.Text = "Totals:";
+            // 
+            // totalsGridView
+            // 
+            totalsGridView.AllowUserToAddRows = false;
+            totalsGridView.AllowUserToDeleteRows = false;
+            totalsGridView.AllowUserToResizeColumns = false;
+            totalsGridView.AllowUserToResizeRows = false;
+            totalsGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            totalsGridView.Location = new Point(1058, 728);
+            totalsGridView.Name = "totalsGridView";
+            totalsGridView.ReadOnly = true;
+            totalsGridView.RowHeadersWidth = 51;
+            totalsGridView.Size = new Size(696, 30);
+            totalsGridView.TabIndex = 8;
             // 
             // iDGLCompanyDataGridViewTextBoxColumn
             // 
             iDGLCompanyDataGridViewTextBoxColumn.DataPropertyName = "IDGLCompany";
-            iDGLCompanyDataGridViewTextBoxColumn.HeaderText = "IDGLCompany";
+            iDGLCompanyDataGridViewTextBoxColumn.HeaderText = "Company";
             iDGLCompanyDataGridViewTextBoxColumn.MinimumWidth = 6;
             iDGLCompanyDataGridViewTextBoxColumn.Name = "iDGLCompanyDataGridViewTextBoxColumn";
             iDGLCompanyDataGridViewTextBoxColumn.Width = 125;
@@ -235,60 +310,13 @@
             cImportBatchIDDataGridViewTextBoxColumn.Name = "cImportBatchIDDataGridViewTextBoxColumn";
             cImportBatchIDDataGridViewTextBoxColumn.Width = 125;
             // 
-            // pRTransactionMasterBindingSource
-            // 
-            pRTransactionMasterBindingSource.DataSource = typeof(PRTransactionMaster);
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 371);
-            label1.Name = "label1";
-            label1.Size = new Size(79, 20);
-            label1.TabIndex = 2;
-            label1.Text = "File Name:";
-            // 
-            // cboSheet
-            // 
-            cboSheet.FormattingEnabled = true;
-            cboSheet.Location = new Point(97, 406);
-            cboSheet.Name = "cboSheet";
-            cboSheet.Size = new Size(536, 28);
-            cboSheet.TabIndex = 3;
-            cboSheet.SelectedIndexChanged += CboSheet_SelectedIndexChanged;
-            // 
-            // txtFilename
-            // 
-            txtFilename.Location = new Point(97, 368);
-            txtFilename.Name = "txtFilename";
-            txtFilename.ReadOnly = true;
-            txtFilename.Size = new Size(536, 27);
-            txtFilename.TabIndex = 4;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(42, 409);
-            label2.Name = "label2";
-            label2.Size = new Size(49, 20);
-            label2.TabIndex = 5;
-            label2.Text = "Sheet:";
-            // 
-            // btnImport
-            // 
-            btnImport.Location = new Point(639, 405);
-            btnImport.Name = "btnImport";
-            btnImport.Size = new Size(94, 29);
-            btnImport.TabIndex = 6;
-            btnImport.Text = "&Import";
-            btnImport.UseVisualStyleBackColor = true;
-            btnImport.Click += BtnImport_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1902, 911);
+            Controls.Add(totalsGridView);
+            Controls.Add(Totals_Lbl);
             Controls.Add(btnImport);
             Controls.Add(label2);
             Controls.Add(txtFilename);
@@ -301,6 +329,7 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)totalsGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -314,6 +343,9 @@
         private TextBox txtFilename;
         private Label label2;
         private Button btnImport;
+        private BindingSource pRTransactionMasterBindingSource;
+        private Label Totals_Lbl;
+        private DataGridView totalsGridView;
         private DataGridViewTextBoxColumn iDGLCompanyDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn cGLCompanyIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn iDPREEmployeeDataGridViewTextBoxColumn;
@@ -333,6 +365,5 @@
         private DataGridViewTextBoxColumn nDoNotPayHoursDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn bPRModuleDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn cImportBatchIDDataGridViewTextBoxColumn;
-        private BindingSource pRTransactionMasterBindingSource;
     }
 }

@@ -82,6 +82,7 @@ namespace ImportPayData
 
                     // Create a list to hold the PRTransactionMaster objects
                     List<PRTransactionMaster> t = new List<PRTransactionMaster>();
+                    // Create a list to hold the Totals objects
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
@@ -150,7 +151,7 @@ namespace ImportPayData
             try
             {
                 string connectionString = "Server=DESKTOP-SUAB0U9;Database=10009;User ID=Tester;Password=password1234;TrustServerCertificate=True;"; // Replace with your actual connection string
- 
+
                 List<PRTransactionMaster> transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
                 if (transactions != null)
                 {
@@ -158,9 +159,9 @@ namespace ImportPayData
 
                     using (SqlBulkCopy bk = new SqlBulkCopy(connectionString))
                     {
-                        
+
                         DataTable dt = transactions.ToDataTable(); // Convert the list to a DataTable
-                        
+
 
                         bk.BulkCopyTimeout = 600;
                         bk.DestinationTableName = "dbo.PRTRANSACTIONMASTER";
@@ -196,6 +197,6 @@ namespace ImportPayData
             }
         }
 
-
+      
     }
 }
