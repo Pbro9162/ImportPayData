@@ -83,6 +83,7 @@ namespace ImportPayData
                     // Create a list to hold the PRTransactionMaster objects
                     List<PRTransactionMaster> t = new List<PRTransactionMaster>();
                     // Create a list to hold the Totals objects
+                    List<Totals> totalsList = new List<Totals>();
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
@@ -110,9 +111,26 @@ namespace ImportPayData
                         // Add the transaction to the list
                         t.Add(tr);
                     }
+                    // Calculate totals by iterating through the list t and summing the values 
+                    Totals tl = new Totals
+                    {
+                        grossTotal = t.Sum(x => x.NGrossAmount),
+                        netTotal = t.Sum(x => x.NNetAmount),
+                        regularPayTotal = t.Sum(x => x.NRegularPay),
+                        overtimePayTotal = t.Sum(x => x.NOvertimePay),
+                        timeOffPayTotal = t.Sum(x => x.NTimeOffPay),
+                        regularHoursTotal = t.Sum(x => x.NRegularHours),
+                        overtimeHoursTotal = t.Sum(x => x.NOvertimeHours),
+                        timeOffHoursTotal = t.Sum(x => x.NTimeOffHours),
+                        doNotPayHoursTotal = t.Sum(x => x.NDoNotPayHours)
+                    };
+                    // Add the totals to the list
+                    totalsList.Add(tl);
+
 
                     pRTransactionMasterBindingSource.DataSource = t;
                     dataGridView1.DataSource = pRTransactionMasterBindingSource;
+                    dataGridView2.DataSource = totalsList; // Bind the totals list to the second DataGridView
                 }
             }
         }

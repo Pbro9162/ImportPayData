@@ -38,7 +38,17 @@
             label2 = new Label();
             btnImport = new Button();
             Totals_Lbl = new Label();
-            totalsGridView = new DataGridView();
+            dataGridView2 = new DataGridView();
+            totalsBindingSource = new BindingSource(components);
+            grossTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            netTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            regularPayTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            overtimePayTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            timeOffPayTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            regularHoursTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            overtimeHoursTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            timeOffHoursTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            doNotPayHoursTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             iDGLCompanyDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             cGLCompanyIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             iDPREEmployeeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -60,12 +70,13 @@
             cImportBatchIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)totalsGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)totalsBindingSource).BeginInit();
             SuspendLayout();
             // 
             // btnBrowse
             // 
-            btnBrowse.Location = new Point(750, 781);
+            btnBrowse.Location = new Point(750, 727);
             btnBrowse.Name = "btnBrowse";
             btnBrowse.Size = new Size(38, 29);
             btnBrowse.TabIndex = 0;
@@ -82,7 +93,7 @@
             dataGridView1.Location = new Point(123, 12);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1631, 694);
+            dataGridView1.Size = new Size(1926, 694);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
             // 
@@ -93,7 +104,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(123, 781);
+            label1.Location = new Point(123, 727);
             label1.Name = "label1";
             label1.Size = new Size(79, 20);
             label1.TabIndex = 2;
@@ -102,7 +113,7 @@
             // cboSheet
             // 
             cboSheet.FormattingEnabled = true;
-            cboSheet.Location = new Point(208, 841);
+            cboSheet.Location = new Point(208, 787);
             cboSheet.Name = "cboSheet";
             cboSheet.Size = new Size(536, 28);
             cboSheet.TabIndex = 3;
@@ -110,7 +121,7 @@
             // 
             // txtFilename
             // 
-            txtFilename.Location = new Point(208, 778);
+            txtFilename.Location = new Point(208, 724);
             txtFilename.Name = "txtFilename";
             txtFilename.ReadOnly = true;
             txtFilename.Size = new Size(536, 27);
@@ -119,7 +130,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(153, 844);
+            label2.Location = new Point(153, 790);
             label2.Name = "label2";
             label2.Size = new Size(49, 20);
             label2.TabIndex = 5;
@@ -127,7 +138,7 @@
             // 
             // btnImport
             // 
-            btnImport.Location = new Point(750, 840);
+            btnImport.Location = new Point(750, 786);
             btnImport.Name = "btnImport";
             btnImport.Size = new Size(94, 29);
             btnImport.TabIndex = 6;
@@ -138,30 +149,119 @@
             // Totals_Lbl
             // 
             Totals_Lbl.AutoSize = true;
-            Totals_Lbl.Location = new Point(1001, 738);
+            Totals_Lbl.Location = new Point(958, 761);
             Totals_Lbl.Name = "Totals_Lbl";
             Totals_Lbl.Size = new Size(51, 20);
             Totals_Lbl.TabIndex = 7;
             Totals_Lbl.Text = "Totals:";
             // 
-            // totalsGridView
+            // dataGridView2
             // 
-            totalsGridView.AllowUserToAddRows = false;
-            totalsGridView.AllowUserToDeleteRows = false;
-            totalsGridView.AllowUserToResizeColumns = false;
-            totalsGridView.AllowUserToResizeRows = false;
-            totalsGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            totalsGridView.Location = new Point(1058, 728);
-            totalsGridView.Name = "totalsGridView";
-            totalsGridView.ReadOnly = true;
-            totalsGridView.RowHeadersWidth = 51;
-            totalsGridView.Size = new Size(696, 30);
-            totalsGridView.TabIndex = 8;
+            dataGridView2.AutoGenerateColumns = false;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { grossTotalDataGridViewTextBoxColumn, netTotalDataGridViewTextBoxColumn, regularPayTotalDataGridViewTextBoxColumn, overtimePayTotalDataGridViewTextBoxColumn, timeOffPayTotalDataGridViewTextBoxColumn, regularHoursTotalDataGridViewTextBoxColumn, overtimeHoursTotalDataGridViewTextBoxColumn, timeOffHoursTotalDataGridViewTextBoxColumn, doNotPayHoursTotalDataGridViewTextBoxColumn });
+            dataGridView2.DataSource = totalsBindingSource;
+            dataGridView2.Location = new Point(1015, 740);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersVisible = false;
+            dataGridView2.RowHeadersWidth = 51;
+            dataGridView2.Size = new Size(1034, 61);
+            dataGridView2.TabIndex = 8;
+            // 
+            // totalsBindingSource
+            // 
+            totalsBindingSource.DataSource = typeof(Totals);
+            // 
+            // grossTotalDataGridViewTextBoxColumn
+            // 
+            grossTotalDataGridViewTextBoxColumn.DataPropertyName = "grossTotal";
+            grossTotalDataGridViewTextBoxColumn.HeaderText = "Gross";
+            grossTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            grossTotalDataGridViewTextBoxColumn.Name = "grossTotalDataGridViewTextBoxColumn";
+            grossTotalDataGridViewTextBoxColumn.ReadOnly = true;
+            grossTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            grossTotalDataGridViewTextBoxColumn.ToolTipText = "Gross Total";
+            // 
+            // netTotalDataGridViewTextBoxColumn
+            // 
+            netTotalDataGridViewTextBoxColumn.DataPropertyName = "netTotal";
+            netTotalDataGridViewTextBoxColumn.HeaderText = "Net";
+            netTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            netTotalDataGridViewTextBoxColumn.Name = "netTotalDataGridViewTextBoxColumn";
+            netTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            netTotalDataGridViewTextBoxColumn.ToolTipText = "Net Total";
+            // 
+            // regularPayTotalDataGridViewTextBoxColumn
+            // 
+            regularPayTotalDataGridViewTextBoxColumn.DataPropertyName = "regularPayTotal";
+            regularPayTotalDataGridViewTextBoxColumn.HeaderText = "Regular(P)";
+            regularPayTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            regularPayTotalDataGridViewTextBoxColumn.Name = "regularPayTotalDataGridViewTextBoxColumn";
+            regularPayTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            regularPayTotalDataGridViewTextBoxColumn.ToolTipText = "Regular Pay";
+            // 
+            // overtimePayTotalDataGridViewTextBoxColumn
+            // 
+            overtimePayTotalDataGridViewTextBoxColumn.DataPropertyName = "overtimePayTotal";
+            overtimePayTotalDataGridViewTextBoxColumn.HeaderText = "Overtime(P)";
+            overtimePayTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            overtimePayTotalDataGridViewTextBoxColumn.Name = "overtimePayTotalDataGridViewTextBoxColumn";
+            overtimePayTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            overtimePayTotalDataGridViewTextBoxColumn.ToolTipText = "Overtime Pay";
+            overtimePayTotalDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // timeOffPayTotalDataGridViewTextBoxColumn
+            // 
+            timeOffPayTotalDataGridViewTextBoxColumn.DataPropertyName = "timeOffPayTotal";
+            timeOffPayTotalDataGridViewTextBoxColumn.HeaderText = "Time Off(P)";
+            timeOffPayTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            timeOffPayTotalDataGridViewTextBoxColumn.Name = "timeOffPayTotalDataGridViewTextBoxColumn";
+            timeOffPayTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            timeOffPayTotalDataGridViewTextBoxColumn.ToolTipText = "Time Off Pay";
+            timeOffPayTotalDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // regularHoursTotalDataGridViewTextBoxColumn
+            // 
+            regularHoursTotalDataGridViewTextBoxColumn.DataPropertyName = "regularHoursTotal";
+            regularHoursTotalDataGridViewTextBoxColumn.HeaderText = "Regular(H)";
+            regularHoursTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            regularHoursTotalDataGridViewTextBoxColumn.Name = "regularHoursTotalDataGridViewTextBoxColumn";
+            regularHoursTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            regularHoursTotalDataGridViewTextBoxColumn.ToolTipText = "Regular Hours";
+            // 
+            // overtimeHoursTotalDataGridViewTextBoxColumn
+            // 
+            overtimeHoursTotalDataGridViewTextBoxColumn.DataPropertyName = "overtimeHoursTotal";
+            overtimeHoursTotalDataGridViewTextBoxColumn.HeaderText = "Overtime(H)";
+            overtimeHoursTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            overtimeHoursTotalDataGridViewTextBoxColumn.Name = "overtimeHoursTotalDataGridViewTextBoxColumn";
+            overtimeHoursTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            overtimeHoursTotalDataGridViewTextBoxColumn.ToolTipText = "Overtime Hours";
+            // 
+            // timeOffHoursTotalDataGridViewTextBoxColumn
+            // 
+            timeOffHoursTotalDataGridViewTextBoxColumn.DataPropertyName = "timeOffHoursTotal";
+            timeOffHoursTotalDataGridViewTextBoxColumn.HeaderText = "Time Off(H)";
+            timeOffHoursTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            timeOffHoursTotalDataGridViewTextBoxColumn.Name = "timeOffHoursTotalDataGridViewTextBoxColumn";
+            timeOffHoursTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            timeOffHoursTotalDataGridViewTextBoxColumn.ToolTipText = "Time Off Hours";
+            timeOffHoursTotalDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // doNotPayHoursTotalDataGridViewTextBoxColumn
+            // 
+            doNotPayHoursTotalDataGridViewTextBoxColumn.DataPropertyName = "doNotPayHoursTotal";
+            doNotPayHoursTotalDataGridViewTextBoxColumn.HeaderText = "Do Not Pay(H)";
+            doNotPayHoursTotalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            doNotPayHoursTotalDataGridViewTextBoxColumn.Name = "doNotPayHoursTotalDataGridViewTextBoxColumn";
+            doNotPayHoursTotalDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
+            doNotPayHoursTotalDataGridViewTextBoxColumn.ToolTipText = "Do Not Pay Hours";
+            doNotPayHoursTotalDataGridViewTextBoxColumn.Width = 155;
             // 
             // iDGLCompanyDataGridViewTextBoxColumn
             // 
             iDGLCompanyDataGridViewTextBoxColumn.DataPropertyName = "IDGLCompany";
-            iDGLCompanyDataGridViewTextBoxColumn.HeaderText = "Company";
+            iDGLCompanyDataGridViewTextBoxColumn.HeaderText = "Company ID";
             iDGLCompanyDataGridViewTextBoxColumn.MinimumWidth = 6;
             iDGLCompanyDataGridViewTextBoxColumn.Name = "iDGLCompanyDataGridViewTextBoxColumn";
             iDGLCompanyDataGridViewTextBoxColumn.Width = 125;
@@ -169,15 +269,16 @@
             // cGLCompanyIDDataGridViewTextBoxColumn
             // 
             cGLCompanyIDDataGridViewTextBoxColumn.DataPropertyName = "CGLCompanyID";
-            cGLCompanyIDDataGridViewTextBoxColumn.HeaderText = "CGLCompanyID";
+            cGLCompanyIDDataGridViewTextBoxColumn.HeaderText = "CGL Company ID";
             cGLCompanyIDDataGridViewTextBoxColumn.MinimumWidth = 6;
             cGLCompanyIDDataGridViewTextBoxColumn.Name = "cGLCompanyIDDataGridViewTextBoxColumn";
+            cGLCompanyIDDataGridViewTextBoxColumn.Visible = false;
             cGLCompanyIDDataGridViewTextBoxColumn.Width = 125;
             // 
             // iDPREEmployeeDataGridViewTextBoxColumn
             // 
             iDPREEmployeeDataGridViewTextBoxColumn.DataPropertyName = "IDPREEmployee";
-            iDPREEmployeeDataGridViewTextBoxColumn.HeaderText = "IDPREEmployee";
+            iDPREEmployeeDataGridViewTextBoxColumn.HeaderText = "Employee ID";
             iDPREEmployeeDataGridViewTextBoxColumn.MinimumWidth = 6;
             iDPREEmployeeDataGridViewTextBoxColumn.Name = "iDPREEmployeeDataGridViewTextBoxColumn";
             iDPREEmployeeDataGridViewTextBoxColumn.Width = 125;
@@ -185,7 +286,7 @@
             // cCheckNumberDataGridViewTextBoxColumn
             // 
             cCheckNumberDataGridViewTextBoxColumn.DataPropertyName = "CCheckNumber";
-            cCheckNumberDataGridViewTextBoxColumn.HeaderText = "CCheckNumber";
+            cCheckNumberDataGridViewTextBoxColumn.HeaderText = "Check Number";
             cCheckNumberDataGridViewTextBoxColumn.MinimumWidth = 6;
             cCheckNumberDataGridViewTextBoxColumn.Name = "cCheckNumberDataGridViewTextBoxColumn";
             cCheckNumberDataGridViewTextBoxColumn.Width = 125;
@@ -193,7 +294,7 @@
             // dCheckDateDataGridViewTextBoxColumn
             // 
             dCheckDateDataGridViewTextBoxColumn.DataPropertyName = "DCheckDate";
-            dCheckDateDataGridViewTextBoxColumn.HeaderText = "DCheckDate";
+            dCheckDateDataGridViewTextBoxColumn.HeaderText = "Check Date";
             dCheckDateDataGridViewTextBoxColumn.MinimumWidth = 6;
             dCheckDateDataGridViewTextBoxColumn.Name = "dCheckDateDataGridViewTextBoxColumn";
             dCheckDateDataGridViewTextBoxColumn.Width = 125;
@@ -201,7 +302,7 @@
             // dAccountingDateDataGridViewTextBoxColumn
             // 
             dAccountingDateDataGridViewTextBoxColumn.DataPropertyName = "DAccountingDate";
-            dAccountingDateDataGridViewTextBoxColumn.HeaderText = "DAccountingDate";
+            dAccountingDateDataGridViewTextBoxColumn.HeaderText = "Accounting Date";
             dAccountingDateDataGridViewTextBoxColumn.MinimumWidth = 6;
             dAccountingDateDataGridViewTextBoxColumn.Name = "dAccountingDateDataGridViewTextBoxColumn";
             dAccountingDateDataGridViewTextBoxColumn.Width = 125;
@@ -209,7 +310,7 @@
             // dPayPeriodStartDataGridViewTextBoxColumn
             // 
             dPayPeriodStartDataGridViewTextBoxColumn.DataPropertyName = "DPayPeriodStart";
-            dPayPeriodStartDataGridViewTextBoxColumn.HeaderText = "DPayPeriodStart";
+            dPayPeriodStartDataGridViewTextBoxColumn.HeaderText = "Pay Period Start";
             dPayPeriodStartDataGridViewTextBoxColumn.MinimumWidth = 6;
             dPayPeriodStartDataGridViewTextBoxColumn.Name = "dPayPeriodStartDataGridViewTextBoxColumn";
             dPayPeriodStartDataGridViewTextBoxColumn.Width = 125;
@@ -217,7 +318,7 @@
             // dPayPeriodEndDataGridViewTextBoxColumn
             // 
             dPayPeriodEndDataGridViewTextBoxColumn.DataPropertyName = "DPayPeriodEnd";
-            dPayPeriodEndDataGridViewTextBoxColumn.HeaderText = "DPayPeriodEnd";
+            dPayPeriodEndDataGridViewTextBoxColumn.HeaderText = "Pay Period End";
             dPayPeriodEndDataGridViewTextBoxColumn.MinimumWidth = 6;
             dPayPeriodEndDataGridViewTextBoxColumn.Name = "dPayPeriodEndDataGridViewTextBoxColumn";
             dPayPeriodEndDataGridViewTextBoxColumn.Width = 125;
@@ -225,7 +326,7 @@
             // nGrossAmountDataGridViewTextBoxColumn
             // 
             nGrossAmountDataGridViewTextBoxColumn.DataPropertyName = "NGrossAmount";
-            nGrossAmountDataGridViewTextBoxColumn.HeaderText = "NGrossAmount";
+            nGrossAmountDataGridViewTextBoxColumn.HeaderText = "Gross Amount";
             nGrossAmountDataGridViewTextBoxColumn.MinimumWidth = 6;
             nGrossAmountDataGridViewTextBoxColumn.Name = "nGrossAmountDataGridViewTextBoxColumn";
             nGrossAmountDataGridViewTextBoxColumn.Width = 125;
@@ -233,7 +334,7 @@
             // nNetAmountDataGridViewTextBoxColumn
             // 
             nNetAmountDataGridViewTextBoxColumn.DataPropertyName = "NNetAmount";
-            nNetAmountDataGridViewTextBoxColumn.HeaderText = "NNetAmount";
+            nNetAmountDataGridViewTextBoxColumn.HeaderText = "Net Amount";
             nNetAmountDataGridViewTextBoxColumn.MinimumWidth = 6;
             nNetAmountDataGridViewTextBoxColumn.Name = "nNetAmountDataGridViewTextBoxColumn";
             nNetAmountDataGridViewTextBoxColumn.Width = 125;
@@ -241,7 +342,7 @@
             // nRegularPayDataGridViewTextBoxColumn
             // 
             nRegularPayDataGridViewTextBoxColumn.DataPropertyName = "NRegularPay";
-            nRegularPayDataGridViewTextBoxColumn.HeaderText = "NRegularPay";
+            nRegularPayDataGridViewTextBoxColumn.HeaderText = "Regular Pay";
             nRegularPayDataGridViewTextBoxColumn.MinimumWidth = 6;
             nRegularPayDataGridViewTextBoxColumn.Name = "nRegularPayDataGridViewTextBoxColumn";
             nRegularPayDataGridViewTextBoxColumn.Width = 125;
@@ -249,7 +350,7 @@
             // nOvertimePayDataGridViewTextBoxColumn
             // 
             nOvertimePayDataGridViewTextBoxColumn.DataPropertyName = "NOvertimePay";
-            nOvertimePayDataGridViewTextBoxColumn.HeaderText = "NOvertimePay";
+            nOvertimePayDataGridViewTextBoxColumn.HeaderText = "Overtime Pay";
             nOvertimePayDataGridViewTextBoxColumn.MinimumWidth = 6;
             nOvertimePayDataGridViewTextBoxColumn.Name = "nOvertimePayDataGridViewTextBoxColumn";
             nOvertimePayDataGridViewTextBoxColumn.Width = 125;
@@ -257,7 +358,7 @@
             // nTimeOffPayDataGridViewTextBoxColumn
             // 
             nTimeOffPayDataGridViewTextBoxColumn.DataPropertyName = "NTimeOffPay";
-            nTimeOffPayDataGridViewTextBoxColumn.HeaderText = "NTimeOffPay";
+            nTimeOffPayDataGridViewTextBoxColumn.HeaderText = "Time Off Pay";
             nTimeOffPayDataGridViewTextBoxColumn.MinimumWidth = 6;
             nTimeOffPayDataGridViewTextBoxColumn.Name = "nTimeOffPayDataGridViewTextBoxColumn";
             nTimeOffPayDataGridViewTextBoxColumn.Width = 125;
@@ -273,7 +374,7 @@
             // nOvertimeHoursDataGridViewTextBoxColumn
             // 
             nOvertimeHoursDataGridViewTextBoxColumn.DataPropertyName = "NOvertimeHours";
-            nOvertimeHoursDataGridViewTextBoxColumn.HeaderText = "NOvertimeHours";
+            nOvertimeHoursDataGridViewTextBoxColumn.HeaderText = "Overtime Hours";
             nOvertimeHoursDataGridViewTextBoxColumn.MinimumWidth = 6;
             nOvertimeHoursDataGridViewTextBoxColumn.Name = "nOvertimeHoursDataGridViewTextBoxColumn";
             nOvertimeHoursDataGridViewTextBoxColumn.Width = 125;
@@ -281,7 +382,7 @@
             // nTimeOffHoursDataGridViewTextBoxColumn
             // 
             nTimeOffHoursDataGridViewTextBoxColumn.DataPropertyName = "NTimeOffHours";
-            nTimeOffHoursDataGridViewTextBoxColumn.HeaderText = "NTimeOffHours";
+            nTimeOffHoursDataGridViewTextBoxColumn.HeaderText = "Time Off Hours";
             nTimeOffHoursDataGridViewTextBoxColumn.MinimumWidth = 6;
             nTimeOffHoursDataGridViewTextBoxColumn.Name = "nTimeOffHoursDataGridViewTextBoxColumn";
             nTimeOffHoursDataGridViewTextBoxColumn.Width = 125;
@@ -289,7 +390,7 @@
             // nDoNotPayHoursDataGridViewTextBoxColumn
             // 
             nDoNotPayHoursDataGridViewTextBoxColumn.DataPropertyName = "NDoNotPayHours";
-            nDoNotPayHoursDataGridViewTextBoxColumn.HeaderText = "NDoNotPayHours";
+            nDoNotPayHoursDataGridViewTextBoxColumn.HeaderText = "Do Not Pay Hours";
             nDoNotPayHoursDataGridViewTextBoxColumn.MinimumWidth = 6;
             nDoNotPayHoursDataGridViewTextBoxColumn.Name = "nDoNotPayHoursDataGridViewTextBoxColumn";
             nDoNotPayHoursDataGridViewTextBoxColumn.Width = 125;
@@ -305,7 +406,7 @@
             // cImportBatchIDDataGridViewTextBoxColumn
             // 
             cImportBatchIDDataGridViewTextBoxColumn.DataPropertyName = "CImportBatchID";
-            cImportBatchIDDataGridViewTextBoxColumn.HeaderText = "CImportBatchID";
+            cImportBatchIDDataGridViewTextBoxColumn.HeaderText = "Batch ID";
             cImportBatchIDDataGridViewTextBoxColumn.MinimumWidth = 6;
             cImportBatchIDDataGridViewTextBoxColumn.Name = "cImportBatchIDDataGridViewTextBoxColumn";
             cImportBatchIDDataGridViewTextBoxColumn.Width = 125;
@@ -314,8 +415,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 911);
-            Controls.Add(totalsGridView);
+            ClientSize = new Size(2199, 1107);
+            Controls.Add(dataGridView2);
             Controls.Add(Totals_Lbl);
             Controls.Add(btnImport);
             Controls.Add(label2);
@@ -329,7 +430,8 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)totalsGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)totalsBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -345,7 +447,17 @@
         private Button btnImport;
         private BindingSource pRTransactionMasterBindingSource;
         private Label Totals_Lbl;
-        private DataGridView totalsGridView;
+        private DataGridView dataGridView2;
+        private BindingSource totalsBindingSource;
+        private DataGridViewTextBoxColumn grossTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn netTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn regularPayTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn overtimePayTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn timeOffPayTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn regularHoursTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn overtimeHoursTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn timeOffHoursTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn doNotPayHoursTotalDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn iDGLCompanyDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn cGLCompanyIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn iDPREEmployeeDataGridViewTextBoxColumn;

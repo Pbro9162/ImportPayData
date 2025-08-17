@@ -8,19 +8,19 @@ namespace ImportPayData
 {
     public class Totals
     {
-        public int grossTotal { get; set; }
-        public int netTotal { get; set; }
-        public int regularPayTotal { get; set; }
-        public int overtimePayTotal { get; set; }
+        public decimal grossTotal { get; set; }
+        public decimal netTotal { get; set; }
+        public decimal regularPayTotal { get; set; }
+        public decimal overtimePayTotal { get; set; }
 
-        public int timeOffPayTotal { get; set; }
+        public decimal timeOffPayTotal { get; set; }
 
-        public int regularHoursTotal { get; set; }
+        public decimal regularHoursTotal { get; set; }
 
-        public int overtimeHoursTotal { get; set; }
+        public decimal overtimeHoursTotal { get; set; }
 
-        public int timeOffHoursTotal { get; set; }
+        public decimal timeOffHoursTotal { get; set; }
 
-        public int doNotPayHoursTotal { get; set; }
+        public decimal doNotPayHoursTotal { get; set; }
     }
 }
