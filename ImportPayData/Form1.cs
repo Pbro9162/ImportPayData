@@ -82,6 +82,7 @@ namespace ImportPayData
 
                     // Create a list to hold the PRTransactionMaster objects
                     List<PRTransactionMaster> t = new List<PRTransactionMaster>();
+                    
                     // Create a list to hold the Totals objects
                     List<Totals> totalsList = new List<Totals>();
 
@@ -92,6 +93,7 @@ namespace ImportPayData
                         tr.IDGLCompany = Convert.ToInt32(dt.Rows[i]["Company ID"]);
                         tr.CGLCompanyID = dt.Rows[i]["cGLCompanyID"].ToString();
                         tr.IDPREEmployee = Convert.ToInt32(dt.Rows[i]["Employee ID"]);
+                        tr.CEmployeeName = dt.Rows[i]["Employee Name"].ToString();
                         tr.CCheckNumber = dt.Rows[i]["Check Number"].ToString();
                         tr.DCheckDate = Convert.ToDateTime(dt.Rows[i]["Check Date"]);
                         tr.DAccountingDate = Convert.ToDateTime(dt.Rows[i]["Accounting Date"]);
@@ -171,6 +173,7 @@ namespace ImportPayData
                 string connectionString = "Server=DESKTOP-SUAB0U9;Database=10009;User ID=Tester;Password=password1234;TrustServerCertificate=True;"; // Replace with your actual connection string
 
                 List<PRTransactionMaster> transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
+                //remove the Emplyee Name column from the DataTable
                 if (transactions != null)
                 {
 

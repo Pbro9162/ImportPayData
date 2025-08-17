@@ -13,6 +13,8 @@ namespace ImportPayData
         public int IDGLCompany { get; set; }
         public string CGLCompanyID { get; set; }
         public int IDPREEmployee { get; set; }
+
+        public string CEmployeeName { get; set; }
         public string CCheckNumber { get; set; }
         public DateTime DCheckDate { get; set; }
         public DateTime DAccountingDate { get; set; }
