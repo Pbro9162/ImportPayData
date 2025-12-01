@@ -11,17 +11,51 @@ namespace ImportPayData
         public Form1()
         {
             InitializeComponent();
+            dataGridView1.DataError += DataGridView1_DataError;
+        }
+
+        private void DataGridView1_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Suppress the default error dialog
+            e.ThrowException = false;
+
+            // Access error details
+            Exception ex = e.Exception;
+            int rowIndex = e.RowIndex;
+            int columnIndex = e.ColumnIndex;
+            DataGridViewDataErrorContexts context = e.Context;
+
+            // Customize the error message or display your own dialog
+            string errorMessage = $"Data error in cell ({rowIndex}, {columnIndex}): {ex.Message} Please enter a valid input before importing or exiting.";
+
+            // Option 1: Display a custom MessageBox
+            MessageBox.Show(errorMessage, "Data Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            // Option 2: Set an error icon and text for the specific cell or row
+            // dataGridView1.Rows[rowIndex].Cells[columnIndex].ErrorText = "Invalid value entered.";
+            // dataGridView1.Rows[rowIndex].ErrorText = "Error in this row.";
+
+            // Option 3: Log the error without displaying a dialog
+            // Console.WriteLine(errorMessage);
         }
 
         DataTableCollection tableCollection;
+        string fileName;
 
         private void BtnBrowse_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Excel Workbook|*.xlsx" })
             {
+                //fetch file path and file name, import to  [dbo].[ZZUTILITYLOG] table 
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    
+                    //FILENAME
+                    fileName = Path.GetFileName(openFileDialog.FileName);
+                    MessageBox.Show("Selected File: " + fileName);
+
+
                     txtFilename.Text = openFileDialog.FileName;
 
                     using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
@@ -69,14 +103,16 @@ namespace ImportPayData
                     c.Parameters.AddWithValue("@param", id);
                     string batchIDresult = c.ExecuteScalar().ToString();
 
+                    //UPDATE BATCHID TEXTBOX ITEM
+                    batchid_txt.Text = batchIDresult;
 
-                    //UPDATES DATA TABLE WITH BATCHID
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        row["cImportBatchID"] = batchIDresult; // Edit the "cimportbatchid" column for this row
+                    //UPDATES DATA TABLE WITH BATCHID (May not be necessary)
+                    //foreach (DataRow row in dt.Rows)
+                    //{
+                    //   row["cImportBatchID"] = batchIDresult; // Edit the "cimportbatchid" column for this row
 
 
-                    }
+                    //  }
                     dataGridView1.Refresh();
 
 
@@ -85,6 +121,12 @@ namespace ImportPayData
                     
                     // Create a list to hold the Totals objects
                     List<Totals> totalsList = new List<Totals>();
+
+                    //Create a List to hold/Display batch ID
+                    List<PRTransactionMaster> batchIDList = new List<PRTransactionMaster>();
+                    PRTransactionMaster b = new PRTransactionMaster();
+                    b.CImportBatchID = batchIDresult;
+                    batchIDList.Add(b); // Add the batch ID object to the list
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
@@ -133,41 +175,101 @@ namespace ImportPayData
                     pRTransactionMasterBindingSource.DataSource = t;
                     dataGridView1.DataSource = pRTransactionMasterBindingSource;
                     dataGridView2.DataSource = totalsList; // Bind the totals list to the second DataGridView
+                    
                 }
             }
         }
 
         private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            List<PRTransactionMaster> transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
+            // Validate indices
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            switch (e.ColumnIndex)
+            var transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
+            if (transactions == null || e.RowIndex >= transactions.Count) return;
+
+            object cellValue = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+            // Map grid column index -> PRTransactionMaster property name
+            var columnMap = new Dictionary<int, string>
             {
-                case 0:
-                    // Handle changes in the "Company ID" column
-                    if (transactions != null && e.RowIndex >= 0 && e.RowIndex < transactions.Count)
-                    {
-                        transactions[e.RowIndex].IDGLCompany = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-                        MessageBox.Show(transactions[e.RowIndex].IDGLCompany.ToString());
-                    }
-                    break;
-                case 1:
-                    // Handle changes in the "cGLCompanyID" column
-                    if (transactions != null && e.RowIndex >= 0 && e.RowIndex < transactions.Count)
-                    {
-                        transactions[e.RowIndex].CGLCompanyID = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                    }
-                    break;
+                [0]  = nameof(PRTransactionMaster.IDGLCompany),
+                [1]  = nameof(PRTransactionMaster.CGLCompanyID),
+                [2]  = nameof(PRTransactionMaster.IDPREEmployee),
+                [3]  = nameof(PRTransactionMaster.CEmployeeName),
+                [4]  = nameof(PRTransactionMaster.CCheckNumber),
+                [5]  = nameof(PRTransactionMaster.DCheckDate),
+                [6]  = nameof(PRTransactionMaster.DAccountingDate),
+                [7]  = nameof(PRTransactionMaster.DPayPeriodStart),
+                [8]  = nameof(PRTransactionMaster.DPayPeriodEnd),
+                [9]  = nameof(PRTransactionMaster.NGrossAmount),
+                [10] = nameof(PRTransactionMaster.NNetAmount),
+                [11] = nameof(PRTransactionMaster.NRegularPay),
+                [12] = nameof(PRTransactionMaster.NOvertimePay),
+                [13] = nameof(PRTransactionMaster.NTimeOffPay),
+                [14] = nameof(PRTransactionMaster.NRegularHours),
+                [15] = nameof(PRTransactionMaster.NOvertimeHours),
+                [16] = nameof(PRTransactionMaster.NTimeOffHours),
+                [17] = nameof(PRTransactionMaster.NDoNotPayHours)
+            };
+
+            if (!columnMap.TryGetValue(e.ColumnIndex, out var propName)) return;
+
+            var prop = typeof(PRTransactionMaster).GetProperty(propName);
+            if (prop == null) return;
+
+            // Convert cell value to property's target type
+            object convertedValue;
+            if (cellValue == null || cellValue == DBNull.Value || string.IsNullOrWhiteSpace(cellValue?.ToString()))
+            {
+                // For non-nullable value types use default(T), for reference/nullable types use null
+                var t = prop.PropertyType;
+                convertedValue = (t.IsValueType && Nullable.GetUnderlyingType(t) == null) ? Activator.CreateInstance(t) : null;
             }
-            pRTransactionMasterBindingSource.DataSource = transactions; // Update the binding source with the modified list
-            pRTransactionMasterBindingSource.ResetBindings(false); // Refresh the DataGridView to reflect changes
+            else
+            {
+                var targetType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                try
+                {
+                    if (targetType == typeof(string)) convertedValue = cellValue.ToString();
+                    else if (targetType == typeof(DateTime)) convertedValue = Convert.ToDateTime(cellValue);
+                    else if (targetType == typeof(int)) convertedValue = Convert.ToInt32(cellValue);
+                    else if (targetType == typeof(decimal)) convertedValue = Convert.ToDecimal(cellValue);
+                    else if (targetType == typeof(bool)) convertedValue = Convert.ToBoolean(cellValue);
+                    else convertedValue = Convert.ChangeType(cellValue, targetType);
+                }
+                catch
+                {
+                    // Invalid conversion — TELL USER TO ENTER CORRECT VALUE TYPE
+                    MessageBox.Show($"Invalid value for {propName}. Please enter a value of type {targetType.Name}.");
+                    return;
+                }
+            }
+            //UPDATE TOTALS AFTER CELL VALUE CHANGE
+            Totals tl = new Totals
+            {
+                grossTotal = transactions.Sum(x => x.NGrossAmount),
+                netTotal = transactions.Sum(x => x.NNetAmount),
+                regularPayTotal = transactions.Sum(x => x.NRegularPay),
+                overtimePayTotal = transactions.Sum(x => x.NOvertimePay),
+                timeOffPayTotal = transactions.Sum(x => x.NTimeOffPay),
+                regularHoursTotal = transactions.Sum(x => x.NRegularHours),
+                overtimeHoursTotal = transactions.Sum(x => x.NOvertimeHours),
+                timeOffHoursTotal = transactions.Sum(x => x.NTimeOffHours),
+                doNotPayHoursTotal = transactions.Sum(x => x.NDoNotPayHours)
+            };
+            dataGridView2.DataSource = new List<Totals> { tl };
 
-
-
+            // Apply change and refresh bindings
+            prop.SetValue(transactions[e.RowIndex], convertedValue);
+            pRTransactionMasterBindingSource.ResetBindings(false);
         }
 
         private void BtnImport_Click(object sender, EventArgs e)
         {
+            //TO-DO: INCLUDE HANDLING FOR DUPLICATE ENTRIES BASED ON BATCH ID OR OTHER UNIQUE FIELDS
+            //IF DUPLICATES FOUND, PROMPT USER TO OVERWRITE OR SKIP IMPORT OF DUPLICATES
+            //* CHECK IF BATCH TO BE IMPORTED IS BLANK BEFOREHAND
             try
             {
                 string connectionString = "Server=DESKTOP-SUAB0U9;Database=10009;User ID=Tester;Password=password1234;TrustServerCertificate=True;"; // Replace with your actual connection string
