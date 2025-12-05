@@ -72,6 +72,8 @@
             totalsBindingSource = new BindingSource(components);
             label3 = new Label();
             batchid_txt = new TextBox();
+            delete_record_btn = new Button();
+            toolTip1 = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -102,7 +104,7 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { iDGLCompanyDataGridViewTextBoxColumn, cGLCompanyIDDataGridViewTextBoxColumn, iDPREEmployeeDataGridViewTextBoxColumn, CEmployeeName, cCheckNumberDataGridViewTextBoxColumn, dCheckDateDataGridViewTextBoxColumn, dAccountingDateDataGridViewTextBoxColumn, dPayPeriodStartDataGridViewTextBoxColumn, dPayPeriodEndDataGridViewTextBoxColumn, nGrossAmountDataGridViewTextBoxColumn, nNetAmountDataGridViewTextBoxColumn, nRegularPayDataGridViewTextBoxColumn, nOvertimePayDataGridViewTextBoxColumn, nTimeOffPayDataGridViewTextBoxColumn, nRegularHoursDataGridViewTextBoxColumn, nOvertimeHoursDataGridViewTextBoxColumn, nTimeOffHoursDataGridViewTextBoxColumn, nDoNotPayHoursDataGridViewTextBoxColumn, bPRModuleDataGridViewCheckBoxColumn, cImportBatchIDDataGridViewTextBoxColumn });
             dataGridView1.DataSource = pRTransactionMasterBindingSource;
-            dataGridView1.Location = new Point(82, 12);
+            dataGridView1.Location = new Point(112, 12);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 35;
             dataGridView1.Size = new Size(2083, 694);
@@ -324,7 +326,7 @@
             // Totals_Lbl
             // 
             Totals_Lbl.AutoSize = true;
-            Totals_Lbl.Location = new Point(1014, 731);
+            Totals_Lbl.Location = new Point(1040, 731);
             Totals_Lbl.Name = "Totals_Lbl";
             Totals_Lbl.Size = new Size(51, 20);
             Totals_Lbl.TabIndex = 7;
@@ -337,7 +339,7 @@
             dataGridView2.ColumnHeadersVisible = false;
             dataGridView2.Columns.AddRange(new DataGridViewColumn[] { grossTotalDataGridViewTextBoxColumn, netTotalDataGridViewTextBoxColumn, regularPayTotalDataGridViewTextBoxColumn, overtimePayTotalDataGridViewTextBoxColumn, timeOffPayTotalDataGridViewTextBoxColumn, regularHoursTotalDataGridViewTextBoxColumn, overtimeHoursTotalDataGridViewTextBoxColumn, timeOffHoursTotalDataGridViewTextBoxColumn, doNotPayHoursTotalDataGridViewTextBoxColumn });
             dataGridView2.DataSource = totalsBindingSource;
-            dataGridView2.Location = new Point(1086, 725);
+            dataGridView2.Location = new Point(1112, 725);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersVisible = false;
             dataGridView2.RowHeadersWidth = 51;
@@ -459,11 +461,27 @@
             batchid_txt.TabIndex = 10;
             batchid_txt.Text = "BATCH ID HERE";
             // 
+            // delete_record_btn
+            // 
+            delete_record_btn.Image = Properties.Resources.Microsoft_VisualStudio_Services_Icons;
+            delete_record_btn.Location = new Point(32, 297);
+            delete_record_btn.Name = "delete_record_btn";
+            delete_record_btn.Size = new Size(42, 42);
+            delete_record_btn.TabIndex = 11;
+            toolTip1.SetToolTip(delete_record_btn, "Delete Row\r\n");
+            delete_record_btn.UseVisualStyleBackColor = true;
+            // 
+            // toolTip1
+            // 
+            toolTip1.BackColor = SystemColors.ButtonFace;
+            toolTip1.Tag = "Delete Row";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2228, 1084);
+            Controls.Add(delete_record_btn);
             Controls.Add(batchid_txt);
             Controls.Add(label3);
             Controls.Add(dataGridView2);
@@ -530,5 +548,7 @@
         private DataGridViewTextBoxColumn doNotPayHoursTotalDataGridViewTextBoxColumn;
         private Label label3;
         private TextBox batchid_txt;
+        private Button delete_record_btn;
+        private ToolTip toolTip1;
     }
 }

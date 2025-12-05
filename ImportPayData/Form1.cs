@@ -13,7 +13,7 @@ namespace ImportPayData
             InitializeComponent();
             dataGridView1.DataError += DataGridView1_DataError;
         }
-
+        //For improper data entry handling in datagridview
         private void DataGridView1_DataError(object? sender, DataGridViewDataErrorEventArgs e)
         {
             // Suppress the default error dialog
@@ -42,6 +42,7 @@ namespace ImportPayData
         DataTableCollection tableCollection;
         string fileName;
 
+        //BROWSE BUTTON TO SELECT EXCEL FILE
         private void BtnBrowse_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Excel Workbook|*.xlsx" })
@@ -83,7 +84,7 @@ namespace ImportPayData
         }
 
 
-
+        //ON SHEET SELECTED, POPULATE DATAGRIDVIEW WITH EXCEL DATA
         private void CboSheet_SelectedIndexChanged(object sender, EventArgs e)
         {
             string connectionString = "Server=DESKTOP-SUAB0U9;Database=10009;User ID=Tester;Password=password1234;TrustServerCertificate=True;";
@@ -180,6 +181,8 @@ namespace ImportPayData
             }
         }
 
+
+        //HANDLE CELL VALUE CHANGES IN DATAGRIDVIEW TO UPDATE UNDERLYING DATA SOURCE
         private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             // Validate indices
@@ -265,6 +268,8 @@ namespace ImportPayData
             pRTransactionMasterBindingSource.ResetBindings(false);
         }
 
+
+        //IMPORT BUTTON TO UPLOAD DATA TO SQL SERVER DATABASE
         private void BtnImport_Click(object sender, EventArgs e)
         {
             //TO-DO: INCLUDE HANDLING FOR DUPLICATE ENTRIES BASED ON BATCH ID OR OTHER UNIQUE FIELDS
