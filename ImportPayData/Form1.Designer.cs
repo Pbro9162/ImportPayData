@@ -74,6 +74,7 @@
             batchid_txt = new TextBox();
             delete_record_btn = new Button();
             toolTip1 = new ToolTip(components);
+            Notes_btn = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -477,11 +478,22 @@
             toolTip1.BackColor = SystemColors.ButtonFace;
             toolTip1.Tag = "Delete Row";
             // 
+            // Notes_btn
+            // 
+            Notes_btn.Location = new Point(1043, 853);
+            Notes_btn.Name = "Notes_btn";
+            Notes_btn.Size = new Size(159, 29);
+            Notes_btn.TabIndex = 12;
+            Notes_btn.Text = "Notes";
+            Notes_btn.UseVisualStyleBackColor = true;
+            Notes_btn.Click += Notes_btn_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2228, 1084);
+            Controls.Add(Notes_btn);
             Controls.Add(delete_record_btn);
             Controls.Add(batchid_txt);
             Controls.Add(label3);
@@ -551,5 +563,6 @@
         private TextBox batchid_txt;
         private Button delete_record_btn;
         private ToolTip toolTip1;
+        private Button Notes_btn;
     }
 }

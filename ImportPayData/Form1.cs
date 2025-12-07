@@ -368,5 +368,12 @@ namespace ImportPayData
                 MessageBox.Show("No rows selected for deletion.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void Notes_btn_Click(object sender, EventArgs e)
+        {
+            //TODO: OPEN AN EDITABLE NOTES WINDOW FOR USER TO ADD NOTES REGARDING THE IMPORT PROCESS
+            //SAVE NOTES TO A TEXT FILE OR DATABASE TABLE LINKED TO THE IMPORT BATCH ID
+            
+        }
     }
 }
