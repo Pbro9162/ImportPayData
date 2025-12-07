@@ -371,9 +371,29 @@ namespace ImportPayData
 
         private void Notes_btn_Click(object sender, EventArgs e)
         {
-            //TODO: OPEN AN EDITABLE NOTES WINDOW FOR USER TO ADD NOTES REGARDING THE IMPORT PROCESS
-            //SAVE NOTES TO A TEXT FILE OR DATABASE TABLE LINKED TO THE IMPORT BATCH ID
-            
+            //OPEN AN EDITABLE NOTES WINDOW FOR USER TO ADD NOTES OR COMMENTS REGARDING THE IMPORT PROCESS
+
+
+
+            //saved in the {SYIMPORTBATCH.mNotes} field in the import Batch Log.
+
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.IsMdiContainer = true; // Makes this form an MDI Container
+
+            // Find the MdiClient control and change its color
+            foreach (Control ctl in this.Controls)
+            {
+                if (ctl is MdiClient)
+                {
+                    ctl.BackColor = System.Drawing.Color.White; // Or any other color
+                                                                    // For VB.NET: ctl.BackColor = Color.LightBlue
+                    break; // Found it, no need to continue looping
+                }
+            }
         }
     }
 }
