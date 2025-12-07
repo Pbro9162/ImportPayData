@@ -2,8 +2,8 @@ using ExcelDataReader;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Z.BulkOperations.Internal.InformationSchema;
-
-
+//Things that may be needed:
+// * Undo functionality for data edits (for mistakes before import) 
 namespace ImportPayData
 {
     public partial class Form1 : Form
@@ -51,7 +51,7 @@ namespace ImportPayData
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    
+
                     //FILENAME
                     fileName = Path.GetFileName(openFileDialog.FileName);
                     MessageBox.Show("Selected File: " + fileName);
@@ -119,7 +119,7 @@ namespace ImportPayData
 
                     // Create a list to hold the PRTransactionMaster objects
                     List<PRTransactionMaster> t = new List<PRTransactionMaster>();
-                    
+
                     // Create a list to hold the Totals objects
                     List<Totals> totalsList = new List<Totals>();
 
@@ -176,7 +176,7 @@ namespace ImportPayData
                     pRTransactionMasterBindingSource.DataSource = t;
                     dataGridView1.DataSource = pRTransactionMasterBindingSource;
                     dataGridView2.DataSource = totalsList; // Bind the totals list to the second DataGridView
-                    
+
                 }
             }
         }
@@ -196,16 +196,16 @@ namespace ImportPayData
             // Map grid column index -> PRTransactionMaster property name
             var columnMap = new Dictionary<int, string>
             {
-                [0]  = nameof(PRTransactionMaster.IDGLCompany),
-                [1]  = nameof(PRTransactionMaster.CGLCompanyID),
-                [2]  = nameof(PRTransactionMaster.IDPREEmployee),
-                [3]  = nameof(PRTransactionMaster.CEmployeeName),
-                [4]  = nameof(PRTransactionMaster.CCheckNumber),
-                [5]  = nameof(PRTransactionMaster.DCheckDate),
-                [6]  = nameof(PRTransactionMaster.DAccountingDate),
-                [7]  = nameof(PRTransactionMaster.DPayPeriodStart),
-                [8]  = nameof(PRTransactionMaster.DPayPeriodEnd),
-                [9]  = nameof(PRTransactionMaster.NGrossAmount),
+                [0] = nameof(PRTransactionMaster.IDGLCompany),
+                [1] = nameof(PRTransactionMaster.CGLCompanyID),
+                [2] = nameof(PRTransactionMaster.IDPREEmployee),
+                [3] = nameof(PRTransactionMaster.CEmployeeName),
+                [4] = nameof(PRTransactionMaster.CCheckNumber),
+                [5] = nameof(PRTransactionMaster.DCheckDate),
+                [6] = nameof(PRTransactionMaster.DAccountingDate),
+                [7] = nameof(PRTransactionMaster.DPayPeriodStart),
+                [8] = nameof(PRTransactionMaster.DPayPeriodEnd),
+                [9] = nameof(PRTransactionMaster.NGrossAmount),
                 [10] = nameof(PRTransactionMaster.NNetAmount),
                 [11] = nameof(PRTransactionMaster.NRegularPay),
                 [12] = nameof(PRTransactionMaster.NOvertimePay),
@@ -325,6 +325,48 @@ namespace ImportPayData
             }
         }
 
-      
+        private void delete_record_btn_Click(object sender, EventArgs e)
+        {
+            //Prompt user for confirmation before deleting selected rows
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var confirmResult = MessageBox.Show("Are you sure to delete the selected record(s)?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        dataGridView1.Rows.RemoveAt(row.Index);
+                    }
+                    // Refresh the binding source to reflect changes
+                    pRTransactionMasterBindingSource.ResetBindings(false);
+
+                    //Recalculate totals after deletion
+                    var transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
+                    if (transactions != null)
+                    {
+                        Totals tl = new Totals
+                        {
+                            grossTotal = transactions.Sum(x => x.NGrossAmount),
+                            netTotal = transactions.Sum(x => x.NNetAmount),
+                            regularPayTotal = transactions.Sum(x => x.NRegularPay),
+                            overtimePayTotal = transactions.Sum(x => x.NOvertimePay),
+                            timeOffPayTotal = transactions.Sum(x => x.NTimeOffPay),
+                            regularHoursTotal = transactions.Sum(x => x.NRegularHours),
+                            overtimeHoursTotal = transactions.Sum(x => x.NOvertimeHours),
+                            timeOffHoursTotal = transactions.Sum(x => x.NTimeOffHours),
+                            doNotPayHoursTotal = transactions.Sum(x => x.NDoNotPayHours)
+                        };
+                        dataGridView2.DataSource = new List<Totals> { tl };
+                    }
+
+
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("No rows selected for deletion.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

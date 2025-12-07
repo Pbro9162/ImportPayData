@@ -470,6 +470,7 @@
             delete_record_btn.TabIndex = 11;
             toolTip1.SetToolTip(delete_record_btn, "Delete Row\r\n");
             delete_record_btn.UseVisualStyleBackColor = true;
+            delete_record_btn.Click += delete_record_btn_Click;
             // 
             // toolTip1
             // 
