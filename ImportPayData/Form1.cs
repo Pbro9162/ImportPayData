@@ -372,7 +372,11 @@ namespace ImportPayData
         private void Notes_btn_Click(object sender, EventArgs e)
         {
             //OPEN AN EDITABLE NOTES WINDOW FOR USER TO ADD NOTES OR COMMENTS REGARDING THE IMPORT PROCESS
+            // Create an instance of the second form
+            Form2 secondForm = new Form2();
 
+            // Show the second form (modeless)
+            secondForm.Show();
 
 
             //saved in the {SYIMPORTBATCH.mNotes} field in the import Batch Log.
