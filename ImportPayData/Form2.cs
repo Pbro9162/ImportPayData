@@ -16,5 +16,20 @@ namespace ImportPayData
         {
             InitializeComponent();
         }
+
+        private void notes_clear_all_btn_Click(object sender, EventArgs e)
+        {
+            // Clear all text boxes in the form
+        }
+
+        private void notes_done_btn_Click(object sender, EventArgs e)
+        {
+            //Save notes with associated record for the pay data import
+        }
+
+        private void notes_exit_btn_Click(object sender, EventArgs e)
+        {
+            //Close the form
+        }
     }
 }
