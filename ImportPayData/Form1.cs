@@ -43,7 +43,7 @@ namespace ImportPayData
 
         DataTableCollection tableCollection;
         string fileName;
-
+        bool isEditing = false;
         //BROWSE BUTTON TO SELECT EXCEL FILE
         private void BtnBrowse_Click(object sender, EventArgs e)
         {
@@ -314,6 +314,7 @@ namespace ImportPayData
                         bk.ColumnMappings.Add("NTimeOffHours", "nTimeOffHours");
                         bk.ColumnMappings.Add("NDoNotPayHours", "nDoNotPayHours");
                         bk.ColumnMappings.Add("CImportBatchID", "cImportBatchID");
+                        bk.ColumnMappings.Add("Ccomments", "cComments");
 
                         bk.WriteToServer(dt.CreateDataReader());
                     }
@@ -372,20 +373,7 @@ namespace ImportPayData
         }
 
 
-        private void Notes_btn_Click(object sender, EventArgs e)
-        {
-            //OPEN AN EDITABLE NOTES WINDOW FOR USER TO ADD NOTES OR COMMENTS REGARDING THE IMPORT PROCESS
-            // Create an instance of the second form
-            Form2 secondForm = new Form2();
-
-            // Show the second form (modeless)
-            secondForm.Show();
-
-
-            //saved in the {SYIMPORTBATCH.mNotes} field in the import Batch Log.
-
-
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -407,7 +395,37 @@ namespace ImportPayData
         {
             //When clicked,
             //if button set to 'edit', make textbox editable and change button text to 'save'
-            //if button set to 'save', save the notes to the database, turn off editable text, and change button text to 'edit'
+            if (isEditing == false)
+            {
+                comments_txtbox.ReadOnly = false;
+                comments_editsave_btn.Text = "Save";
+                isEditing = true;
+            }
+            else
+            {
+                //if button set to 'save', save the notes to the database, turn off editable text, and change button text to 'edit'
+                comments_txtbox.ReadOnly = true;
+                comments_editsave_btn.Text = "Edit";
+                isEditing = false;
+                // Add comments to datagridview1 underlying datasource comments column
+                var transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
+                if (transactions != null)
+                {
+                    foreach (var transaction in transactions)
+                    {
+                        transaction.Ccomments = comments_txtbox.Text;
+                    }
+                    pRTransactionMasterBindingSource.ResetBindings(false);
+
+                }
+            }
+        }   
+           
+        
+
+        private void comments_clear_btn_Click(object sender, EventArgs e)
+        {
+            //clear the comments textbox
         }
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             btnBrowse = new Button();
             dataGridView1 = new DataGridView();
             iDGLCompanyDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -52,6 +52,7 @@
             nDoNotPayHoursDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             bPRModuleDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             cImportBatchIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Ccomments = new DataGridViewTextBoxColumn();
             pRTransactionMasterBindingSource = new BindingSource(components);
             label1 = new Label();
             cboSheet = new ComboBox();
@@ -75,7 +76,7 @@
             delete_record_btn = new Button();
             toolTip1 = new ToolTip(components);
             Notes_btn = new Button();
-            textBox1 = new TextBox();
+            comments_txtbox = new TextBox();
             Comments_label = new Label();
             comments_editsave_btn = new Button();
             comments_clear_btn = new Button();
@@ -98,16 +99,16 @@
             // dataGridView1
             // 
             dataGridView1.AutoGenerateColumns = false;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { iDGLCompanyDataGridViewTextBoxColumn, cGLCompanyIDDataGridViewTextBoxColumn, iDPREEmployeeDataGridViewTextBoxColumn, CEmployeeName, cCheckNumberDataGridViewTextBoxColumn, dCheckDateDataGridViewTextBoxColumn, dAccountingDateDataGridViewTextBoxColumn, dPayPeriodStartDataGridViewTextBoxColumn, dPayPeriodEndDataGridViewTextBoxColumn, nGrossAmountDataGridViewTextBoxColumn, nNetAmountDataGridViewTextBoxColumn, nRegularPayDataGridViewTextBoxColumn, nOvertimePayDataGridViewTextBoxColumn, nTimeOffPayDataGridViewTextBoxColumn, nRegularHoursDataGridViewTextBoxColumn, nOvertimeHoursDataGridViewTextBoxColumn, nTimeOffHoursDataGridViewTextBoxColumn, nDoNotPayHoursDataGridViewTextBoxColumn, bPRModuleDataGridViewCheckBoxColumn, cImportBatchIDDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { iDGLCompanyDataGridViewTextBoxColumn, cGLCompanyIDDataGridViewTextBoxColumn, iDPREEmployeeDataGridViewTextBoxColumn, CEmployeeName, cCheckNumberDataGridViewTextBoxColumn, dCheckDateDataGridViewTextBoxColumn, dAccountingDateDataGridViewTextBoxColumn, dPayPeriodStartDataGridViewTextBoxColumn, dPayPeriodEndDataGridViewTextBoxColumn, nGrossAmountDataGridViewTextBoxColumn, nNetAmountDataGridViewTextBoxColumn, nRegularPayDataGridViewTextBoxColumn, nOvertimePayDataGridViewTextBoxColumn, nTimeOffPayDataGridViewTextBoxColumn, nRegularHoursDataGridViewTextBoxColumn, nOvertimeHoursDataGridViewTextBoxColumn, nTimeOffHoursDataGridViewTextBoxColumn, nDoNotPayHoursDataGridViewTextBoxColumn, bPRModuleDataGridViewCheckBoxColumn, cImportBatchIDDataGridViewTextBoxColumn, Ccomments });
             dataGridView1.DataSource = pRTransactionMasterBindingSource;
             dataGridView1.Location = new Point(112, 12);
             dataGridView1.Name = "dataGridView1";
@@ -278,6 +279,15 @@
             cImportBatchIDDataGridViewTextBoxColumn.Name = "cImportBatchIDDataGridViewTextBoxColumn";
             cImportBatchIDDataGridViewTextBoxColumn.Visible = false;
             cImportBatchIDDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // Ccomments
+            // 
+            Ccomments.DataPropertyName = "Ccomments";
+            Ccomments.HeaderText = "Comments";
+            Ccomments.MinimumWidth = 6;
+            Ccomments.Name = "Ccomments";
+            Ccomments.ReadOnly = true;
+            Ccomments.Width = 125;
             // 
             // pRTransactionMasterBindingSource
             // 
@@ -484,21 +494,20 @@
             // 
             // Notes_btn
             // 
-            Notes_btn.Location = new Point(880, 888);
+            Notes_btn.Location = new Point(0, 0);
             Notes_btn.Name = "Notes_btn";
-            Notes_btn.Size = new Size(159, 29);
-            Notes_btn.TabIndex = 12;
-            Notes_btn.Text = "Notes";
-            Notes_btn.UseVisualStyleBackColor = true;
-            Notes_btn.Click += Notes_btn_Click;
+            Notes_btn.Size = new Size(75, 23);
+            Notes_btn.TabIndex = 20;
             // 
-            // textBox1
+            // comments_txtbox
             // 
-            textBox1.Location = new Point(1614, 842);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(532, 218);
-            textBox1.TabIndex = 16;
+            comments_txtbox.BorderStyle = BorderStyle.FixedSingle;
+            comments_txtbox.Location = new Point(1614, 842);
+            comments_txtbox.Multiline = true;
+            comments_txtbox.Name = "comments_txtbox";
+            comments_txtbox.ReadOnly = true;
+            comments_txtbox.Size = new Size(532, 218);
+            comments_txtbox.TabIndex = 16;
             // 
             // Comments_label
             // 
@@ -527,6 +536,7 @@
             comments_clear_btn.TabIndex = 19;
             comments_clear_btn.Text = "Clear All";
             comments_clear_btn.UseVisualStyleBackColor = true;
+            comments_clear_btn.Click += comments_clear_btn_Click;
             // 
             // Form1
             // 
@@ -536,7 +546,7 @@
             Controls.Add(comments_clear_btn);
             Controls.Add(comments_editsave_btn);
             Controls.Add(Comments_label);
-            Controls.Add(textBox1);
+            Controls.Add(comments_txtbox);
             Controls.Add(Notes_btn);
             Controls.Add(delete_record_btn);
             Controls.Add(batchid_txt);
@@ -576,6 +586,24 @@
         private Label Totals_Lbl;
         private DataGridView dataGridView2;
         private BindingSource totalsBindingSource;
+        private DataGridViewTextBoxColumn grossTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn netTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn regularPayTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn overtimePayTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn timeOffPayTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn regularHoursTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn overtimeHoursTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn timeOffHoursTotalDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn doNotPayHoursTotalDataGridViewTextBoxColumn;
+        private Label label3;
+        private TextBox batchid_txt;
+        private Button delete_record_btn;
+        private ToolTip toolTip1;
+        private Button Notes_btn;
+        private TextBox comments_txtbox;
+        private Label Comments_label;
+        private Button comments_editsave_btn;
+        private Button comments_clear_btn;
         private DataGridViewTextBoxColumn iDGLCompanyDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn cGLCompanyIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn iDPREEmployeeDataGridViewTextBoxColumn;
@@ -596,23 +624,6 @@
         private DataGridViewTextBoxColumn nDoNotPayHoursDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn bPRModuleDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn cImportBatchIDDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn grossTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn netTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn regularPayTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn overtimePayTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn timeOffPayTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn regularHoursTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn overtimeHoursTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn timeOffHoursTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn doNotPayHoursTotalDataGridViewTextBoxColumn;
-        private Label label3;
-        private TextBox batchid_txt;
-        private Button delete_record_btn;
-        private ToolTip toolTip1;
-        private Button Notes_btn;
-        private TextBox textBox1;
-        private Label Comments_label;
-        private Button comments_editsave_btn;
-        private Button comments_clear_btn;
+        private DataGridViewTextBoxColumn Ccomments;
     }
 }
