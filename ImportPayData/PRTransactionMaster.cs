@@ -41,6 +41,8 @@ namespace ImportPayData
         public bool BPRModule { get; set; }
 
         public string CImportBatchID { get; set; }
+
+        public string Ccomments { get; set; }
         // Additional properties can be added as needed
 
 

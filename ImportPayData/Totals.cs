@@ -22,5 +22,6 @@ namespace ImportPayData
         public decimal timeOffHoursTotal { get; set; }
 
         public decimal doNotPayHoursTotal { get; set; }
+
     }
 }

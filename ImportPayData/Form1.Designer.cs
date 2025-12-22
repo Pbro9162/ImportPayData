@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             btnBrowse = new Button();
             dataGridView1 = new DataGridView();
             iDGLCompanyDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -75,6 +75,10 @@
             delete_record_btn = new Button();
             toolTip1 = new ToolTip(components);
             Notes_btn = new Button();
+            textBox1 = new TextBox();
+            Comments_label = new Label();
+            comments_editsave_btn = new Button();
+            comments_clear_btn = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -94,14 +98,14 @@
             // dataGridView1
             // 
             dataGridView1.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { iDGLCompanyDataGridViewTextBoxColumn, cGLCompanyIDDataGridViewTextBoxColumn, iDPREEmployeeDataGridViewTextBoxColumn, CEmployeeName, cCheckNumberDataGridViewTextBoxColumn, dCheckDateDataGridViewTextBoxColumn, dAccountingDateDataGridViewTextBoxColumn, dPayPeriodStartDataGridViewTextBoxColumn, dPayPeriodEndDataGridViewTextBoxColumn, nGrossAmountDataGridViewTextBoxColumn, nNetAmountDataGridViewTextBoxColumn, nRegularPayDataGridViewTextBoxColumn, nOvertimePayDataGridViewTextBoxColumn, nTimeOffPayDataGridViewTextBoxColumn, nRegularHoursDataGridViewTextBoxColumn, nOvertimeHoursDataGridViewTextBoxColumn, nTimeOffHoursDataGridViewTextBoxColumn, nDoNotPayHoursDataGridViewTextBoxColumn, bPRModuleDataGridViewCheckBoxColumn, cImportBatchIDDataGridViewTextBoxColumn });
             dataGridView1.DataSource = pRTransactionMasterBindingSource;
@@ -480,7 +484,7 @@
             // 
             // Notes_btn
             // 
-            Notes_btn.Location = new Point(1043, 853);
+            Notes_btn.Location = new Point(880, 888);
             Notes_btn.Name = "Notes_btn";
             Notes_btn.Size = new Size(159, 29);
             Notes_btn.TabIndex = 12;
@@ -488,11 +492,51 @@
             Notes_btn.UseVisualStyleBackColor = true;
             Notes_btn.Click += Notes_btn_Click;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(1614, 842);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(532, 218);
+            textBox1.TabIndex = 16;
+            // 
+            // Comments_label
+            // 
+            Comments_label.AutoSize = true;
+            Comments_label.Location = new Point(1525, 842);
+            Comments_label.Name = "Comments_label";
+            Comments_label.Size = new Size(83, 20);
+            Comments_label.TabIndex = 17;
+            Comments_label.Text = "Comments:";
+            // 
+            // comments_editsave_btn
+            // 
+            comments_editsave_btn.Location = new Point(1514, 888);
+            comments_editsave_btn.Name = "comments_editsave_btn";
+            comments_editsave_btn.Size = new Size(94, 29);
+            comments_editsave_btn.TabIndex = 18;
+            comments_editsave_btn.Text = "Edit";
+            comments_editsave_btn.UseVisualStyleBackColor = true;
+            comments_editsave_btn.Click += comments_editsave_btn_Click;
+            // 
+            // comments_clear_btn
+            // 
+            comments_clear_btn.Location = new Point(1514, 923);
+            comments_clear_btn.Name = "comments_clear_btn";
+            comments_clear_btn.Size = new Size(94, 29);
+            comments_clear_btn.TabIndex = 19;
+            comments_clear_btn.Text = "Clear All";
+            comments_clear_btn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2228, 1084);
+            Controls.Add(comments_clear_btn);
+            Controls.Add(comments_editsave_btn);
+            Controls.Add(Comments_label);
+            Controls.Add(textBox1);
             Controls.Add(Notes_btn);
             Controls.Add(delete_record_btn);
             Controls.Add(batchid_txt);
@@ -509,7 +553,7 @@
             IsMdiContainer = true;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Import Payroll Transactions";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).EndInit();
@@ -566,5 +610,9 @@
         private Button delete_record_btn;
         private ToolTip toolTip1;
         private Button Notes_btn;
+        private TextBox textBox1;
+        private Label Comments_label;
+        private Button comments_editsave_btn;
+        private Button comments_clear_btn;
     }
 }

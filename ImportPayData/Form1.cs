@@ -8,10 +8,12 @@ namespace ImportPayData
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
             dataGridView1.DataError += DataGridView1_DataError;
+
         }
         //For improper data entry handling in datagridview
         private void DataGridView1_DataError(object? sender, DataGridViewDataErrorEventArgs e)
@@ -369,6 +371,7 @@ namespace ImportPayData
             }
         }
 
+
         private void Notes_btn_Click(object sender, EventArgs e)
         {
             //OPEN AN EDITABLE NOTES WINDOW FOR USER TO ADD NOTES OR COMMENTS REGARDING THE IMPORT PROCESS
@@ -394,10 +397,17 @@ namespace ImportPayData
                 if (ctl is MdiClient)
                 {
                     ctl.BackColor = System.Drawing.Color.White; // Or any other color
-                                                                    // For VB.NET: ctl.BackColor = Color.LightBlue
+                                                                // For VB.NET: ctl.BackColor = Color.LightBlue
                     break; // Found it, no need to continue looping
                 }
             }
+        }
+
+        private void comments_editsave_btn_Click(object sender, EventArgs e)
+        {
+            //When clicked,
+            //if button set to 'edit', make textbox editable and change button text to 'save'
+            //if button set to 'save', save the notes to the database, turn off editable text, and change button text to 'edit'
         }
     }
 }
