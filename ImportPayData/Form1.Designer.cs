@@ -75,13 +75,13 @@
             batchid_txt = new TextBox();
             delete_record_btn = new Button();
             toolTip1 = new ToolTip(components);
+            exit_btn = new Button();
+            clearAll_btn = new Button();
             Notes_btn = new Button();
             comments_txtbox = new TextBox();
             Comments_label = new Label();
             comments_editsave_btn = new Button();
             comments_clear_btn = new Button();
-            exit_btn = new Button();
-            clearAll_btn = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -494,6 +494,27 @@
             toolTip1.BackColor = SystemColors.ButtonFace;
             toolTip1.Tag = "Delete Row";
             // 
+            // exit_btn
+            // 
+            exit_btn.Location = new Point(2122, 1042);
+            exit_btn.Name = "exit_btn";
+            exit_btn.Size = new Size(94, 29);
+            exit_btn.TabIndex = 21;
+            exit_btn.Text = "Exit";
+            toolTip1.SetToolTip(exit_btn, "Close software");
+            exit_btn.UseVisualStyleBackColor = true;
+            exit_btn.Click += exit_btn_Click;
+            // 
+            // clearAll_btn
+            // 
+            clearAll_btn.Location = new Point(2022, 1042);
+            clearAll_btn.Name = "clearAll_btn";
+            clearAll_btn.Size = new Size(94, 29);
+            clearAll_btn.TabIndex = 22;
+            clearAll_btn.Text = "Clear All";
+            toolTip1.SetToolTip(clearAll_btn, "Erases all data in the current grid view");
+            clearAll_btn.UseVisualStyleBackColor = true;
+            // 
             // Notes_btn
             // 
             Notes_btn.Location = new Point(0, 0);
@@ -539,26 +560,6 @@
             comments_clear_btn.Text = "Clear All";
             comments_clear_btn.UseVisualStyleBackColor = true;
             comments_clear_btn.Click += comments_clear_btn_Click;
-            // 
-            // exit_btn
-            // 
-            exit_btn.Location = new Point(2122, 1042);
-            exit_btn.Name = "exit_btn";
-            exit_btn.Size = new Size(94, 29);
-            exit_btn.TabIndex = 21;
-            exit_btn.Text = "Exit";
-            toolTip1.SetToolTip(exit_btn, "Close software");
-            exit_btn.UseVisualStyleBackColor = true;
-            // 
-            // clearAll_btn
-            // 
-            clearAll_btn.Location = new Point(2022, 1042);
-            clearAll_btn.Name = "clearAll_btn";
-            clearAll_btn.Size = new Size(94, 29);
-            clearAll_btn.TabIndex = 22;
-            clearAll_btn.Text = "Clear All";
-            toolTip1.SetToolTip(clearAll_btn, "Erases all data in the current grid view");
-            clearAll_btn.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

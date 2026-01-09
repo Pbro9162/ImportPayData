@@ -44,6 +44,7 @@ namespace ImportPayData
         DataTableCollection tableCollection;
         string fileName;
         bool isEditing = false;
+        bool isDataImported = false;
         //BROWSE BUTTON TO SELECT EXCEL FILE
         private void BtnBrowse_Click(object sender, EventArgs e)
         {
@@ -187,6 +188,12 @@ namespace ImportPayData
         //HANDLE CELL VALUE CHANGES IN DATAGRIDVIEW TO UPDATE UNDERLYING DATA SOURCE
         private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            //every edit technically hasn't been imported yet so
+            if (isDataImported == true)
+            {
+                isDataImported = false;
+            }
+
             // Validate indices
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
@@ -319,8 +326,8 @@ namespace ImportPayData
                         bk.WriteToServer(dt.CreateDataReader());
                     }
                 }
-                MessageBox.Show("FINISHED");
-
+                MessageBox.Show("IMPORT FINISHED");
+                isDataImported = true;
             }
             catch (Exception ex)
             {
@@ -330,6 +337,12 @@ namespace ImportPayData
 
         private void delete_record_btn_Click(object sender, EventArgs e)
         {
+            //every deletion technically hasn't been imported yet so
+            if (isDataImported == true)
+            {
+                isDataImported = false;
+            }
+
             //Prompt user for confirmation before deleting selected rows
             if (dataGridView1.SelectedRows.Count > 0)
             {
@@ -373,11 +386,11 @@ namespace ImportPayData
         }
 
 
-        
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void comments_editsave_btn_Click(object sender, EventArgs e)
@@ -426,6 +439,40 @@ namespace ImportPayData
                 }
                 pRTransactionMasterBindingSource.ResetBindings(false);
             }
+        }
+
+        private void exit_btn_Click(object sender, EventArgs e)
+        {
+            //If the data from gridview hasn't been imported yet, prompt user to confirm exit without importing
+
+            if (dataGridView1.Rows.Count <= 1)
+            {
+                //general exit prompt to avoid misclicking
+                var generalExit = MessageBox.Show("Are you sure you want to exit?", "Confirm Exit", MessageBoxButtons.YesNo);
+                if (generalExit == DialogResult.Yes)
+                {
+                    Application.Exit();
+                }
+            }
+            else
+            {
+               
+                if (isDataImported == false)
+                {
+                    var confirmResult = MessageBox.Show("There are unsaved changes that have not been imported. Are you sure you want to exit without importing?", "Confirm Exit", MessageBoxButtons.YesNo);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        Application.Exit();
+                    }
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
+
+
+            
         }
     }
 }
