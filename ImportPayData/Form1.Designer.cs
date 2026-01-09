@@ -476,7 +476,6 @@
             batchid_txt.ReadOnly = true;
             batchid_txt.Size = new Size(260, 27);
             batchid_txt.TabIndex = 10;
-            batchid_txt.Text = "BATCH ID HERE";
             // 
             // delete_record_btn
             // 
@@ -514,6 +513,7 @@
             clearAll_btn.Text = "Clear All";
             toolTip1.SetToolTip(clearAll_btn, "Erases all data in the current grid view");
             clearAll_btn.UseVisualStyleBackColor = true;
+            clearAll_btn.Click += clearAll_btn_Click;
             // 
             // Notes_btn
             // 

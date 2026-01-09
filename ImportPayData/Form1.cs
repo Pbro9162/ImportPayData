@@ -57,7 +57,7 @@ namespace ImportPayData
 
                     //FILENAME
                     fileName = Path.GetFileName(openFileDialog.FileName);
-                   
+
 
 
                     txtFilename.Text = openFileDialog.FileName;
@@ -456,7 +456,7 @@ namespace ImportPayData
             }
             else
             {
-               
+
                 if (isDataImported == false)
                 {
                     var confirmResult = MessageBox.Show("There are unsaved changes that have not been imported. Are you sure you want to exit without importing?", "Confirm Exit", MessageBoxButtons.YesNo);
@@ -472,7 +472,24 @@ namespace ImportPayData
             }
 
 
-            
+
+        }
+
+        private void clearAll_btn_Click(object sender, EventArgs e)
+        {
+            //Prompt user for confirmation before clearing all data
+            //Clear all data in all datagridviews and reset bindings
+            var confirmResult = MessageBox.Show("Are you sure you want to clear all data? This action cannot be undone.", "Confirm Clear All", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                dataGridView1.DataSource = null;
+                dataGridView2.DataSource = null;
+                pRTransactionMasterBindingSource.Clear();
+                isDataImported = false;
+                //clear batch id and comments textbox as well
+                batchid_txt.Clear();
+                comments_txtbox.Clear();
+            }
         }
     }
 }
