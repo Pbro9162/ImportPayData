@@ -57,7 +57,7 @@ namespace ImportPayData
 
                     //FILENAME
                     fileName = Path.GetFileName(openFileDialog.FileName);
-                    MessageBox.Show("Selected File: " + fileName);
+                   
 
 
                     txtFilename.Text = openFileDialog.FileName;
