@@ -377,18 +377,7 @@ namespace ImportPayData
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.IsMdiContainer = true; // Makes this form an MDI Container
-
-            // Find the MdiClient control and change its color
-            foreach (Control ctl in this.Controls)
-            {
-                if (ctl is MdiClient)
-                {
-                    ctl.BackColor = System.Drawing.Color.White; // Or any other color
-                                                                // For VB.NET: ctl.BackColor = Color.LightBlue
-                    break; // Found it, no need to continue looping
-                }
-            }
+            
         }
 
         private void comments_editsave_btn_Click(object sender, EventArgs e)
@@ -419,13 +408,24 @@ namespace ImportPayData
 
                 }
             }
-        }   
-           
-        
+        }
+
+
 
         private void comments_clear_btn_Click(object sender, EventArgs e)
         {
             //clear the comments textbox
+            comments_txtbox.Clear();
+            // Also clear comments in the underlying datasource
+            var transactions = pRTransactionMasterBindingSource.DataSource as List<PRTransactionMaster>;
+            if (transactions != null)
+            {
+                foreach (var transaction in transactions)
+                {
+                    transaction.Ccomments = string.Empty;
+                }
+                pRTransactionMasterBindingSource.ResetBindings(false);
+            }
         }
     }
 }

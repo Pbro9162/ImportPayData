@@ -80,6 +80,8 @@
             Comments_label = new Label();
             comments_editsave_btn = new Button();
             comments_clear_btn = new Button();
+            exit_btn = new Button();
+            clearAll_btn = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pRTransactionMasterBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -502,7 +504,7 @@
             // comments_txtbox
             // 
             comments_txtbox.BorderStyle = BorderStyle.FixedSingle;
-            comments_txtbox.Location = new Point(1614, 842);
+            comments_txtbox.Location = new Point(1287, 853);
             comments_txtbox.Multiline = true;
             comments_txtbox.Name = "comments_txtbox";
             comments_txtbox.ReadOnly = true;
@@ -512,7 +514,7 @@
             // Comments_label
             // 
             Comments_label.AutoSize = true;
-            Comments_label.Location = new Point(1525, 842);
+            Comments_label.Location = new Point(1198, 853);
             Comments_label.Name = "Comments_label";
             Comments_label.Size = new Size(83, 20);
             Comments_label.TabIndex = 17;
@@ -520,7 +522,7 @@
             // 
             // comments_editsave_btn
             // 
-            comments_editsave_btn.Location = new Point(1514, 888);
+            comments_editsave_btn.Location = new Point(1187, 899);
             comments_editsave_btn.Name = "comments_editsave_btn";
             comments_editsave_btn.Size = new Size(94, 29);
             comments_editsave_btn.TabIndex = 18;
@@ -530,7 +532,7 @@
             // 
             // comments_clear_btn
             // 
-            comments_clear_btn.Location = new Point(1514, 923);
+            comments_clear_btn.Location = new Point(1187, 934);
             comments_clear_btn.Name = "comments_clear_btn";
             comments_clear_btn.Size = new Size(94, 29);
             comments_clear_btn.TabIndex = 19;
@@ -538,11 +540,33 @@
             comments_clear_btn.UseVisualStyleBackColor = true;
             comments_clear_btn.Click += comments_clear_btn_Click;
             // 
+            // exit_btn
+            // 
+            exit_btn.Location = new Point(2122, 1042);
+            exit_btn.Name = "exit_btn";
+            exit_btn.Size = new Size(94, 29);
+            exit_btn.TabIndex = 21;
+            exit_btn.Text = "Exit";
+            toolTip1.SetToolTip(exit_btn, "Close software");
+            exit_btn.UseVisualStyleBackColor = true;
+            // 
+            // clearAll_btn
+            // 
+            clearAll_btn.Location = new Point(2022, 1042);
+            clearAll_btn.Name = "clearAll_btn";
+            clearAll_btn.Size = new Size(94, 29);
+            clearAll_btn.TabIndex = 22;
+            clearAll_btn.Text = "Clear All";
+            toolTip1.SetToolTip(clearAll_btn, "Erases all data in the current grid view");
+            clearAll_btn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2228, 1084);
+            Controls.Add(clearAll_btn);
+            Controls.Add(exit_btn);
             Controls.Add(comments_clear_btn);
             Controls.Add(comments_editsave_btn);
             Controls.Add(Comments_label);
@@ -560,7 +584,6 @@
             Controls.Add(label1);
             Controls.Add(dataGridView1);
             Controls.Add(btnBrowse);
-            IsMdiContainer = true;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Import Payroll Transactions";
@@ -625,5 +648,7 @@
         private DataGridViewCheckBoxColumn bPRModuleDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn cImportBatchIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn Ccomments;
+        private Button exit_btn;
+        private Button clearAll_btn;
     }
 }
